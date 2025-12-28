@@ -1,5 +1,6 @@
 #pragma once
 #include <sqlite3.h>
+#include <string>
 
 class Database {
 private:
@@ -8,4 +9,7 @@ private:
 
 public:
   void createDatabase();
+  void createTask(std::string task_content);
+  void openDatabase();
+  std::string quotesql(const std::string &s);
 };
