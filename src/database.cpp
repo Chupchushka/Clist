@@ -56,3 +56,18 @@ void Database::createTask(std::string task_content) {
 
   sqlite3_close(DB);
 }
+
+void Database::deleteTask(std::string id) {
+  openDatabase();
+  char *errMsg;
+  std::string sql = "DELETE FROM tasks WHERE task_id=" + id + ";";
+
+  int exit = sqlite3_exec(DB, sql.c_str(), NULL, 0, &errMsg);
+
+  if (exit != SQLITE_OK) {
+    std::cerr << "LOG: ERROR while executing sql!" << errMsg << std::endl;
+    sqlite3_free(errMsg);
+  }
+
+  sqlite3_close(DB);
+}
