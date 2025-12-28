@@ -8,8 +8,9 @@ private:
   sqlite3 *DB;
 
 public:
+  std::string quotesql(const std::string &s);
+  void openDatabase();
   void createDatabase();
   void createTask(std::string task_content);
-  void openDatabase();
-  std::string quotesql(const std::string &s);
+  void deleteTask(std::string id);
 };
