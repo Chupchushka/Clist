@@ -27,7 +27,7 @@ int main() {
 
   while (1) {
 
-    // Prints the list and highlights the chose options
+    // Prints the list and highlights the chosen options
     for (int i = 0; i < size; i++) {
       if (i == highlight) {
         wattron(menuWin, A_REVERSE);
@@ -38,13 +38,21 @@ int main() {
 
     choice = wgetch(menuWin);
 
-    // Change highlight option depend the key pressed
+    // Change highlight variable depend the key pressed
     switch (choice) {
     case KEY_UP:
-      highlight--;
+      if (highlight == 0) {
+        highlight = size - 1;
+      } else {
+        highlight--;
+      }
       break;
     case KEY_DOWN:
-      highlight++;
+      if (highlight == size - 1) {
+        highlight = 0;
+      } else {
+        highlight++;
+      }
       break;
     default:
       break;
