@@ -7,7 +7,7 @@ int TUI::createMenuBar() {
   getmaxyx(stdscr, yMax, xMax);
 
   // Window setup
-  menuWin = newwin(6, xMax - 12, yMax - 8, 5);
+  menuWin = newwin(6, xMax - 12, yMax - 6, 5);
 
   box(menuWin, 0, 0);
   refresh();
