@@ -13,4 +13,5 @@ public:
   void createDatabase();
   void createTask(std::string task_content);
   void deleteTask(std::string id);
+  void getColumn(std::string column_name);
 };
