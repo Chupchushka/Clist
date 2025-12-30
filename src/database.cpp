@@ -71,3 +71,41 @@ void Database::deleteTask(std::string id) {
 
   sqlite3_close(DB);
 }
+
+void Database::getColumn(std::string column_name) {
+  openDatabase();
+
+  std::string sql = "SELECT " + column_name + " FROM tasks;";
+
+  // prepare the sql statement
+  sqlite3_stmt *stmt;
+  int rc = sqlite3_prepare_v2(DB, sql.c_str(), -1, &stmt, NULL);
+
+  // Error checking
+  if (rc != SQLITE_OK) {
+    std::cerr << "LOG: prepare failed: " << sqlite3_errmsg(DB) << std::endl;
+    return;
+  } else {
+    bool done = false;
+
+    while (!done) {
+      switch (sqlite3_step(stmt)) {
+      // Case if sql prepared the next row
+      case SQLITE_ROW: {
+        // Get the i column text
+        const unsigned char *content_column = sqlite3_column_text(stmt, 0);
+        std::cout << "Task_content: " << content_column << std::endl;
+        std::cout << "\n";
+        break;
+      }
+      // Case if sql is finished
+      case SQLITE_DONE:
+        std::cout << "LOG: done reading all rows" << std::endl;
+        sqlite3_finalize(stmt);
+        done = true;
+        break;
+      }
+    }
+    sqlite3_close(DB);
+  }
+}
