@@ -1,6 +1,9 @@
 #include "database.h"
+#include "tui.h"
 #include <ncurses.h>
 #include <string>
+
+TUI ui;
 
 int main() {
   // Screen setup
@@ -8,61 +11,8 @@ int main() {
   cbreak();
   noecho();
 
-  // Get max y & x
-  int yMax, xMax;
-  getmaxyx(stdscr, yMax, xMax);
-
-  // Setup menu Window
-  WINDOW *menuWin = newwin(6, xMax - 12, yMax - 8, 5);
-  box(menuWin, 0, 0);
-  refresh();
-  wrefresh(menuWin);
-
-  keypad(menuWin, true);
-
-  std::string choices[3] = {"Edit", "Mark complete", "Delete"};
-  int choice;
-  int highlight = 0;
-  int size = sizeof(choices) / sizeof(choices[0]);
-
-  while (1) {
-
-    // Prints the list and highlights the chosen options
-    for (int i = 0; i < size; i++) {
-      if (i == highlight) {
-        wattron(menuWin, A_REVERSE);
-      }
-      mvwprintw(menuWin, i + 1, 1, choices[i].c_str());
-      wattroff(menuWin, A_REVERSE);
-    }
-
-    choice = wgetch(menuWin);
-
-    // Change highlight variable depend the key pressed
-    switch (choice) {
-    case KEY_UP:
-      if (highlight == 0) {
-        highlight = size - 1;
-      } else {
-        highlight--;
-      }
-      break;
-    case KEY_DOWN:
-      if (highlight == size - 1) {
-        highlight = 0;
-      } else {
-        highlight++;
-      }
-      break;
-    default:
-      break;
-    }
-
-    if (choice == 10) {
-      // Logic when chosing the option
-      break;
-    }
-  }
+  int choice = ui.createMenuBar();
+  std::cout << choice;
 
   endwin();
   return 0;
