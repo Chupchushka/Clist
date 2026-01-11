@@ -45,4 +45,6 @@ $(BUILD_DB_DIR):
 clean:
 	rm -r $(BUILD_DIR)
 
+all: $(BUILD_DIR)/$(TARGET_EXEC)
+
 -include $(DEPS)
