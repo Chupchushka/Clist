@@ -2,6 +2,7 @@
 #include "tui.h"
 #include <ncurses.h>
 #include <string>
+#include <vector>
 
 TUI ui;
 Database db;
@@ -26,11 +27,14 @@ int main() {
   refresh();
   wrefresh(tasksWin);
 
+
+
   ui.createMenuBar();
 
   getch();
 
   endwin();
-  db.getColumn("task_id");
+
+  std::vector<std::string> values = db.getColumn("task_content");
   return 0;
 }
