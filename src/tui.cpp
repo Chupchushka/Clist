@@ -1,20 +1,19 @@
 #include "tui.h"
 #include <ncurses.h>
-#include <string.h>
 
 int TUI::createMenuBar() {
   // Get yMax & xMax
   getmaxyx(stdscr, yMax, xMax);
 
   // Window setup
-  menuWin = newwin(6, xMax - 12, yMax - 6, 5);
+  menuWin = newwin(5, xMax - 12, yMax - 6, 5);
 
   box(menuWin, 0, 0);
   refresh();
   wrefresh(menuWin);
   keypad(menuWin, true);
 
-  while (1) {
+  while (true) {
     // Prints the list and highlights the chosen options
     for (int i = 0; i < size; i++) {
       if (i == highlight) {
@@ -48,8 +47,12 @@ int TUI::createMenuBar() {
 
     // If enter was pressed return selected option
     if (choice == 10) {
+      // Clear the window
+      wclear(menuWin);
+      wrefresh(menuWin);
+      delwin(menuWin);
+
       return highlight;
-      break;
     }
   }
 }
