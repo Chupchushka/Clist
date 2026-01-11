@@ -1,6 +1,7 @@
 #pragma once
 #include <sqlite3.h>
 #include <string>
+#include <vector>
 
 class Database {
 private:
@@ -13,5 +14,6 @@ public:
   void createDatabase();
   void createTask(std::string task_content);
   void deleteTask(std::string id);
-  void getColumn(std::string column_name);
+  int getColumnSize(std::string column_name);
+  std::vector<std::string> getColumn(std::string column_name);
 };
