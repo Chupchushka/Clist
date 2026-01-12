@@ -1,4 +1,5 @@
 #include "database.h"
+#include "main_window.h"
 #include "tui.h"
 #include <ncurses.h>
 #include <string>
@@ -6,6 +7,7 @@
 
 TUI ui;
 Database db;
+MainWindow mv;
 
 int main() {
   db.createDatabase();
@@ -13,28 +15,24 @@ int main() {
   db.createTask("Task2");
   db.createTask("Task3");
   db.createTask("Task4");
+  db.createTask("Task5");
+  db.createTask("Task6");
+  db.createTask("Task7");
+  db.createTask("Task8");
+  db.createTask("Task9");
+  db.createTask("Task10");
+  db.createTask("Task11");
+  db.createTask("Task12");
+  db.createTask("Task13");
+  db.createTask("Task14");
 
   // Screen setup
   initscr();
   cbreak();
   noecho();
 
-  int yMax, xMax;
-  getmaxyx(stdscr, yMax, xMax);
+  std::vector<std::string> tasks = db.getColumn("task_content");
+  mv.renderMainWin(tasks);
 
-  WINDOW *tasksWin = newwin(yMax - 7, xMax - 6, 1, 3);
-  box(tasksWin, 0, 0);
-  refresh();
-  wrefresh(tasksWin);
-
-
-
-  ui.createMenuBar();
-
-  getch();
-
-  endwin();
-
-  std::vector<std::string> values = db.getColumn("task_content");
   return 0;
 }
