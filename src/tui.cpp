@@ -1,7 +1,7 @@
 #include "tui.h"
 #include <ncurses.h>
 
-int TUI::createMenuBar() {
+int TUI::renderActionWin() {
   // Get yMax & xMax
   getmaxyx(stdscr, yMax, xMax);
 
@@ -53,6 +53,61 @@ int TUI::createMenuBar() {
       delwin(menuWin);
 
       return highlight;
+    }
+  }
+}
+
+int TUI::renderMainWin(std::vector<std::string> tasks) {
+  // Get yMax & xMax
+  getmaxyx(stdscr, yMax, xMax);
+
+  // Window setup
+  mainWin = newwin(yMax - 7, xMax - 6, 1, 3);
+  box(mainWin, 0, 0);
+  refresh();
+  wrefresh(mainWin);
+  keypad(mainWin, TRUE);
+
+  while (true) {
+    // Prints the list and highlights the chosen options
+    for (int i = 0; i < tasks.size(); i++) {
+      if (i == main_window_highlight) {
+        wattron(mainWin, A_REVERSE);
+      }
+      mvwprintw(mainWin, i + 2, 3, tasks[i].c_str());
+      wattroff(mainWin, A_REVERSE);
+    }
+
+    main_window_choice = wgetch(mainWin);
+
+    // Handling key presses
+    switch (main_window_choice) {
+
+    case KEY_UP:
+      if (main_window_highlight == 0) {
+        main_window_highlight = tasks.size() - 1;
+      } else {
+        main_window_highlight--;
+      }
+      break;
+
+    case KEY_DOWN:
+      if (main_window_highlight == tasks.size() - 1) {
+        main_window_highlight = 0;
+      } else {
+        main_window_highlight++;
+      }
+      break;
+
+    default:
+      break;
+    }
+
+    // If enter key is pressed
+    if (main_window_choice == 10) {
+      wrefresh(mainWin);
+      renderActionWin();
+      return main_window_highlight;
     }
   }
 }
