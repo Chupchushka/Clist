@@ -9,7 +9,7 @@ Database db;
 
 int main() {
   db.createDatabase();
-  for (int i = 0; i <= 10; i++) {
+  for (int i = 0; i <= 100; i++) {
     db.createTask("task number " + std::to_string(i));
   }
 
