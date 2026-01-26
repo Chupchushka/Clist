@@ -21,6 +21,6 @@ private:
 
 public:
   std::string choices[3] = {"Edit", "Mark complete", "Delete"};
-  int renderActionWin();
+  std::string renderActionWin();
   int renderMainWin(std::vector<std::string> tasks);
 };

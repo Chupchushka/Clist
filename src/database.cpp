@@ -116,12 +116,10 @@ std::vector<std::string> Database::getColumn(std::string column_name) {
       case SQLITE_ROW: {
         // Get the n column text
             values.push_back(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 0)));
-            std::cout << "Task_content: " << values.back() << std::endl;
         break;
       }
       // Case if sql is finished
       case SQLITE_DONE:
-        std::cout << "LOG: done reading all rows" << std::endl;
         sqlite3_finalize(stmt);
         done = true;
         break;

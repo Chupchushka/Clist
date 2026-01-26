@@ -1,7 +1,7 @@
 #include "tui.h"
 #include <ncurses.h>
 
-int TUI::renderActionWin()
+std::string TUI::renderActionWin()
 {
     // Get yMax & xMax
     getmaxyx(stdscr, yMax, xMax);
@@ -64,7 +64,7 @@ int TUI::renderActionWin()
             wrefresh(menuWin);
             delwin(menuWin);
 
-            return highlight;
+            return choices[highlight];
         }
     }
 }
@@ -166,7 +166,6 @@ int TUI::renderMainWin(std::vector<std::string> tasks)
         if (main_window_choice == 10)
         {
             wrefresh(mainWin);
-            renderActionWin();
             return main_window_highlight;
         }
     }
