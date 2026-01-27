@@ -2,6 +2,7 @@
 #include <iostream>
 #include <ncurses.h>
 #include <string.h>
+#include "task.h"
 
 class TUI {
 
@@ -21,6 +22,7 @@ private:
 
 public:
   std::string choices[3] = {"Edit", "Mark complete", "Delete"};
+
   std::string renderActionWin();
-  int renderMainWin(std::vector<std::string> tasks);
+  int renderMainWin(std::vector<Task> tasks);
 };
