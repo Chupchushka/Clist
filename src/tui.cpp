@@ -1,5 +1,6 @@
 #include "tui.h"
 #include <ncurses.h>
+#include "task.h"
 
 std::string TUI::renderActionWin()
 {
@@ -69,7 +70,7 @@ std::string TUI::renderActionWin()
     }
 }
 
-int TUI::renderMainWin(std::vector<std::string> tasks)
+int TUI::renderMainWin(std::vector<Task> tasks)
 {
     // Get yMax & xMax
     getmaxyx(stdscr, yMax, xMax);
@@ -115,7 +116,7 @@ int TUI::renderMainWin(std::vector<std::string> tasks)
             {
                 wattron(mainWin, A_REVERSE);
             }
-            mvwprintw(mainWin, row, 3, tasks[i].c_str());
+            mvwprintw(mainWin, row, 3, tasks[i].content.c_str());
             wattroff(mainWin, A_REVERSE);
         }
 
@@ -166,7 +167,7 @@ int TUI::renderMainWin(std::vector<std::string> tasks)
         if (main_window_choice == 10)
         {
             wrefresh(mainWin);
-            return main_window_highlight;
+            return tasks[main_window_highlight].id;
         }
     }
 }
