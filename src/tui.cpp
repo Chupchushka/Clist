@@ -110,8 +110,10 @@ int TUI::renderMainWin(std::vector<Task> tasks)
         int visible_end = std::min(scroll_offset + visible_height, (int)tasks.size());
         for (int i = scroll_offset; i < visible_end; i++)
         {
+            // Determine the row to current task
             int row = i - scroll_offset + 2;
-
+            
+            // Actual printing 
             if (i == main_window_highlight)
             {
                 wattron(mainWin, A_REVERSE);
@@ -133,7 +135,7 @@ int TUI::renderMainWin(std::vector<Task> tasks)
         // Handling key presses
         switch (main_window_choice)
         {
-        case KEY_UP:
+        case KEY_UP: // Arrow up
             if (main_window_highlight == 0)
             {
                 main_window_highlight = tasks.size() - 1;
@@ -143,7 +145,7 @@ int TUI::renderMainWin(std::vector<Task> tasks)
                 main_window_highlight--;
             }
             break;
-        case KEY_DOWN:
+        case KEY_DOWN: // Arrow down
             if (main_window_highlight == tasks.size() - 1)
             {
                 main_window_highlight = 0;
