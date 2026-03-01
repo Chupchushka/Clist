@@ -19,6 +19,7 @@ private:
 
   WINDOW *mainWin;
   WINDOW *menuWin;
+  WINDOW *editWin;
 
   void printVisibleTasks(int scroll_offset, int visible_end, std::vector<Task> tasks);
 
@@ -26,5 +27,6 @@ public:
   std::string choices[3] = {"Edit", "Mark complete", "Delete"};
   std::string renderActionWin();
   int renderMainWin(std::vector<Task> tasks);
+  std::string renderEditWin();
   int main_window_highlight = 0;
 };
