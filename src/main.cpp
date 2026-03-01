@@ -25,6 +25,8 @@ int main() {
     db.createTask("task number " + std::to_string(i));
   }
 
+  db.editTask(std::to_string(2), "privet");
+
   std::vector<Task> tasks;
 
   // Screen setup
