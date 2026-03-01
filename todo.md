@@ -1,12 +1,5 @@
 # TODO
 
-#### Make a task selection menu
-- [ ] draw a window
-- [ ] print out the tasks
-- [ ] join the menu bar
-- [ ] make tasks markable 
-
-
-
-
- 
+- [ ] make tasks markable (Complete/Incomplete
+- [ ] Add a vim-like keybindings
+- [ ] Make a config file
