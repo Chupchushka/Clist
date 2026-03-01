@@ -1,6 +1,7 @@
 #include "tui.h"
 #include "task.h"
 #include <ncurses.h>
+#include <string>
 
 #define ACALL -1
 
@@ -59,6 +60,34 @@ std::string TUI::renderActionWin() {
       return choices[highlight];
     }
   }
+}
+
+std::string TUI::renderEditWin(){
+  // Get yMax & xMax
+  getmaxyx(stdscr, yMax, xMax);
+
+  // Window setup
+  editWin = newwin(5, xMax - 12, yMax - 6, 5);
+
+  box(editWin, 0, 0);
+  refresh();
+  wrefresh(editWin);
+  keypad(editWin, true);
+  echo();
+
+  mvwprintw(editWin, 2, 1, "New content: ");
+  wrefresh(editWin);
+
+  char buffer[256];
+  mvwgetnstr(editWin, 2, 14, buffer, 255);
+  
+  // Cleaning window
+  noecho();
+  wclear(editWin);
+  wrefresh(editWin);
+  delwin(editWin);
+  
+  return std::string(buffer);
 }
 
 int TUI::renderMainWin(std::vector<Task> tasks) {
