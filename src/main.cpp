@@ -11,23 +11,16 @@ Database db;
 void makeAction(std::string choice, int task_id) {
   if (choice == "Edit") {
     db.editTask(std::to_string(task_id), ui.renderEditWin());
-    std::cout << "LOG: Edit call" << std::endl;
   } else if (choice == "Mark complete") {
     std::cout << "LOG: Mark complete call" << std::endl;
   } else if (choice == "Delete") {
-    std::cout << "LOG: Delete call" << std::endl;
     db.deleteTask(std::to_string(task_id));
+    ui.main_window_highlight--;
   }
 }
 
 int main() {
   db.createDatabase();
-  for (int i = 0; i <= 50; i++) {
-    db.createTask("task number " + std::to_string(i));
-  }
-
-  db.editTask(std::to_string(2), "privet");
-
   std::vector<Task> tasks;
 
   // Screen setup
@@ -51,7 +44,7 @@ int main() {
     highlighted_task_index = ui.renderMainWin(tasks);
 
     if (highlighted_task_index == -1) {
-      db.createTask("New task");
+      db.createTask(ui.renderEditWin());
       ui.main_window_highlight = tasks.size();
     } else {
       choice = ui.renderActionWin();
