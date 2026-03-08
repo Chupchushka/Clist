@@ -59,10 +59,10 @@ void Database::createTask(std::string task_content) {
   sqlite3_close(DB);
 }
 
-void Database::editTask(std::string id, std::string new_content){
+void Database::editTask(std::string id, std::string column_name, std::string new_content){
   openDatabase();
   char *errMsg;
-  std::string sql = "UPDATE tasks SET task_content = " + quotesql(new_content) + "WHERE task_id = " + quotesql(id) + ";";
+  std::string sql = "UPDATE tasks SET " + quotesql(column_name) + " = " + quotesql(new_content) + "WHERE task_id = " + quotesql(id) + ";";
  
   int exit = sqlite3_exec(DB, sql.c_str(), NULL, 0, &errMsg);
 

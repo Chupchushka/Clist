@@ -10,7 +10,7 @@ Database db;
 
 void makeAction(std::string choice, int task_id) {
   if (choice == "Edit") {
-    db.editTask(std::to_string(task_id), ui.renderEditWin());
+    db.editTask(std::to_string(task_id),"task_content", ui.renderEditWin());
   } else if (choice == "Mark complete") {
     std::cout << "LOG: Mark complete call" << std::endl;
   } else if (choice == "Delete") {

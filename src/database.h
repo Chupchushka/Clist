@@ -1,4 +1,5 @@
 #pragma once
+#include <shared_mutex>
 #include <sqlite3.h>
 #include <string>
 #include <vector>
@@ -15,7 +16,7 @@ public:
   void createDatabase();
   void createTask(std::string task_content);
   void deleteTask(std::string id);
-  void editTask(std::string id, std::string new_content);
+  void editTask(std::string id, std::string column_name, std::string new_content);
 
   int getColumnSize(std::string column_name);
 
