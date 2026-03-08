@@ -21,4 +21,5 @@ public:
   int getColumnSize(std::string column_name);
 
   std::vector<std::string> getColumn(std::string column_name);
+  std::vector<bool> getIntColumn(std::string column_name);
 };

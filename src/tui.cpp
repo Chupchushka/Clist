@@ -130,7 +130,7 @@ int TUI::renderMainWin(std::vector<Task> tasks) {
       if (i == main_window_highlight) {
         wattron(mainWin, A_REVERSE);
       }
-      mvwprintw(mainWin, row, 3, tasks[i].content.c_str());
+      mvwprintw(mainWin, row, 3, std::to_string(tasks[i].completion).c_str());
       wattroff(mainWin, A_REVERSE);
     }
 

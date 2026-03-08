@@ -28,7 +28,7 @@ void Database::createDatabase() {
   char *sql = "CREATE TABLE IF NOT EXISTS tasks ("
               "task_id INTEGER PRIMARY KEY AUTOINCREMENT, "
               "task_content TEXT NOT NULL,"
-              "task_completion BOOLEAN NOT NULL"
+              "task_completion INTEGER NOT NULL"
               ");";
 
   int exit = sqlite3_exec(DB, sql, NULL, 0, &errMsg);
@@ -132,6 +132,44 @@ std::vector<std::string> Database::getColumn(std::string column_name) {
       case SQLITE_ROW: {
         // Get the n column text
             values.push_back(reinterpret_cast<const char*>(sqlite3_column_text(stmt, 0)));
+        break;
+      }
+      // Case if sql is finished
+      case SQLITE_DONE:
+        sqlite3_finalize(stmt);
+        done = true;
+        break;
+      }
+    }
+    sqlite3_close(DB);
+    return values;
+  }
+}
+
+std::vector<bool> Database::getIntColumn(std::string column_name) {
+  openDatabase();
+
+  std::string sql = "SELECT " + column_name + " FROM tasks;";
+
+  std::vector<bool> values;
+
+  // prepare the sql statement
+  sqlite3_stmt *stmt;
+  int rc = sqlite3_prepare_v2(DB, sql.c_str(), -1, &stmt, NULL);
+
+  // Error checking
+  if (rc != SQLITE_OK) {
+    std::cerr << "LOG: prepare failed: " << sqlite3_errmsg(DB) << std::endl;
+  } else {
+    bool done = false;
+
+    while (!done) {
+      switch (sqlite3_step(stmt)) {
+
+       // Case if sql prepared the next row
+      case SQLITE_ROW: {
+        // Get the n column bool
+            values.push_back((sqlite3_column_int(stmt, 0)));
         break;
       }
       // Case if sql is finished
