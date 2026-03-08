@@ -27,7 +27,8 @@ void Database::createDatabase() {
   char *errMsg;
   char *sql = "CREATE TABLE IF NOT EXISTS tasks ("
               "task_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-              "task_content TEXT NOT NULL"
+              "task_content TEXT NOT NULL,"
+              "task_completion BOOLEAN NOT NULL"
               ");";
 
   int exit = sqlite3_exec(DB, sql, NULL, 0, &errMsg);
@@ -45,8 +46,8 @@ void Database::createTask(std::string task_content) {
   openDatabase();
 
   char *errMsg;
-  std::string sql = "INSERT INTO tasks (task_content) VALUES (" +
-                    quotesql(task_content) + ");";
+  std::string sql = "INSERT INTO tasks (task_content, task_completion) VALUES (" +
+                    quotesql(task_content) + ", FALSE" + ");";
 
   int exit = sqlite3_exec(DB, sql.c_str(), NULL, 0, &errMsg);
 
