@@ -4,6 +4,7 @@
 #include <string>
 
 #define ACALL -1
+#define QCALL -2
 
 std::string TUI::renderActionWin() {
   // Get yMax & xMax
@@ -176,6 +177,9 @@ int TUI::renderMainWin(std::vector<Task> tasks) {
       break;
     case 'a':
       return ACALL;
+      break;
+    case 'q':
+      return QCALL;
       break;
     default:
       break;

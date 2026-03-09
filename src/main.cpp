@@ -58,6 +58,9 @@ int main() {
     if (returned_id == -1) {
       db.createTask(ui.renderEditWin());
       ui.main_window_highlight = tasks.size();
+    } else if (returned_id == -2) {
+      endwin();
+      break;
     }
     else {
       // Find the task that is highlighted & make action
