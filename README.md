@@ -7,8 +7,9 @@ Clist is a TUI note managing app made in c++ and sqlite3 as a studying project.
 - Adding tasks
 - Deleting tasks
 - Editing tasks
+- Completing tasks
 - Vim like keybindings (In progress...)
-- Completing tasks (In progress...)
+
 
 ### Build Instructions
 
