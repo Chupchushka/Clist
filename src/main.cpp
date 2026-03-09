@@ -1,7 +1,9 @@
 #include "database.h"
 #include "task.h"
 #include "tui.h"
+#include <iostream>
 #include <ncurses.h>
+#include <ostream>
 #include <string>
 #include <vector>
 
@@ -21,6 +23,12 @@ void makeAction(std::string choice, Task task) {
 }
 
 int main() {
+  
+  // Check if the terminal emulator support colors
+  if (!has_colors()) {
+    std::cerr << "Warning! Your terminal emulator doesn't support colors. It may cause some issues while rendering." << std::endl;
+  }
+
   db.createDatabase();
   std::vector<Task> tasks;
 
@@ -28,6 +36,7 @@ int main() {
   initscr();
   cbreak();
   noecho();
+  start_color();
 
   int returned_id;
   std::string choice;
@@ -61,9 +70,5 @@ int main() {
       }
     }
   }
-
-
-
-
   return 0;
 }

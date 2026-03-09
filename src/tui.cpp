@@ -93,6 +93,7 @@ std::string TUI::renderEditWin(){
 int TUI::renderMainWin(std::vector<Task> tasks) {
   // Get yMax & xMax
   getmaxyx(stdscr, yMax, xMax);
+  init_pair(1, COLOR_GREEN, COLOR_BLACK);
 
   // Window setup
   mainWin = newwin(yMax - 7, xMax - 6, 1, 3);
@@ -127,11 +128,17 @@ int TUI::renderMainWin(std::vector<Task> tasks) {
     for (int i = scroll_offset; i < visible_end; i++) {
       int row = i - scroll_offset + 2;
 
+      // Print task in reverse if selected and in green when completed
       if (i == main_window_highlight) {
         wattron(mainWin, A_REVERSE);
       }
-      mvwprintw(mainWin, row, 3, std::to_string(tasks[i].completion).c_str());
+      if (tasks[i].completion == true){
+        wattron(mainWin, COLOR_PAIR(1));
+      }
+
+      mvwprintw(mainWin, row, 3, tasks[i].content.c_str());
       wattroff(mainWin, A_REVERSE);
+      wattroff(mainWin, COLOR_PAIR(1));
     }
 
     // Show scroll indicator
