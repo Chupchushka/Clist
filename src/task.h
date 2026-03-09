@@ -7,6 +7,7 @@ class Task{
     public:
         int id;
         std::string content;
+        bool completion;
 
-    Task(int task_id, std::string task_content);
+    Task(int task_id, std::string task_content, bool completion);
 };
