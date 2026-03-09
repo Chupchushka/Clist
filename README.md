@@ -20,6 +20,12 @@ $ make
 $ ./build/waybar
 ```
 
+### Controls
+↑ ↓ → ← - Navigate
+a - Add a new task
+Enter - Invoke edit menu
+q - Close the program
+
 ### Uninstalling
 ``` bash
 $ make clean
